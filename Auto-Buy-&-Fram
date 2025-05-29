@@ -21,7 +21,8 @@ local TextLabel = Instance.new("TextLabel")
 TextLabel.Parent = ScreenGui
 TextLabel.Size = UDim2.new(1, 0, 1, 0)
 TextLabel.BackgroundTransparency = 1
-TextLabel.Text = "Nexus Hub V5 By NhatNguyenQuang"
+TextLabel.Text = "Nexus Hub V6.1.57
+Tèo Gáy"
 TextLabel.TextColor3 = Color3.new(1, 1, 1)
 TextLabel.TextScaled = true
 TextLabel.Font = Enum.Font.GothamBold
@@ -45,4 +46,5 @@ task.delay(3, function()
 	blur:Destroy()
 end)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/nhat0258/Testing/main/Grow-A-Graden-Tool"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/kosowa/asd/refs/heads/main/GaG.lua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/gumanba/Scripts/refs/heads/main/GrowaGarden"))()
