@@ -1,7 +1,9 @@
 --// SERVICES
 local TweenService = game:GetService("TweenService")
 local Lighting = game:GetService("Lighting")
-local PlayerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
 --// BLUR EFFECT
 local blur = Instance.new("BlurEffect")
@@ -11,7 +13,7 @@ blur.Parent = Lighting
 local blurTweenIn = TweenService:Create(blur, TweenInfo.new(0.5, Enum.EasingStyle.Sine), { Size = 24 })
 local blurTweenOut = TweenService:Create(blur, TweenInfo.new(0.5, Enum.EasingStyle.Sine), { Size = 0 })
 
---// GUI SETUP
+--// GUI SETUP INTRO
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "IntroUI"
 ScreenGui.ResetOnSpawn = false
@@ -21,8 +23,7 @@ local TextLabel = Instance.new("TextLabel")
 TextLabel.Parent = ScreenGui
 TextLabel.Size = UDim2.new(1, 0, 1, 0)
 TextLabel.BackgroundTransparency = 1
-TextLabel.Text = "Nexus Hub V6.1.57
-Tèo Gáy"
+TextLabel.Text = "Nexus Hub V6.1.57 - Tèo Skibidi"
 TextLabel.TextColor3 = Color3.new(1, 1, 1)
 TextLabel.TextScaled = true
 TextLabel.Font = Enum.Font.GothamBold
@@ -36,7 +37,7 @@ local textTweenOut = TweenService:Create(TextLabel, TweenInfo.new(0.5, Enum.Easi
 --// PLAY INTRO
 blurTweenIn:Play()
 textTweenIn:Play()
-wait(2) -- Giữ 2s
+wait(2)
 textTweenOut:Play()
 blurTweenOut:Play()
 
@@ -45,6 +46,76 @@ task.delay(3, function()
 	ScreenGui:Destroy()
 	blur:Destroy()
 end)
+
+--// DUPLICATE TOOL GUI
+local DupeGui = Instance.new("ScreenGui")
+DupeGui.Name = "DupeToolGUI"
+DupeGui.ResetOnSpawn = false
+DupeGui.Parent = PlayerGui
+
+-- Viền đen bo góc
+local OuterFrame = Instance.new("Frame")
+OuterFrame.Size = UDim2.new(0, 250, 0, 130)
+OuterFrame.Position = UDim2.new(0.35, 0, 0.35, 0)
+OuterFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+OuterFrame.BorderSizePixel = 0
+OuterFrame.Active = true
+OuterFrame.Draggable = true
+OuterFrame.Parent = DupeGui
+
+local OuterCorner = Instance.new("UICorner")
+OuterCorner.CornerRadius = UDim.new(0, 12)
+OuterCorner.Parent = OuterFrame
+
+-- Frame chính
+local InnerFrame = Instance.new("Frame")
+InnerFrame.Size = UDim2.new(1, -8, 1, -8)
+InnerFrame.Position = UDim2.new(0, 4, 0, 4)
+InnerFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+InnerFrame.BorderSizePixel = 0
+InnerFrame.Parent = OuterFrame
+
+local InnerCorner = Instance.new("UICorner")
+InnerCorner.CornerRadius = UDim.new(0, 10)
+InnerCorner.Parent = InnerFrame
+
+-- Tiêu đề
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1, 0, 0, 28)
+Title.BackgroundTransparency = 1
+Title.Text = "Nexus Hub 💫 | Dupe Item"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 17
+Title.Parent = InnerFrame
+
+-- Nút Dupe
+local DupeButton = Instance.new("TextButton")
+DupeButton.Size = UDim2.new(1, -20, 0, 40)
+DupeButton.Position = UDim2.new(0, 10, 0, 45)
+DupeButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+DupeButton.Text = "Dupe Item"
+DupeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+DupeButton.Font = Enum.Font.GothamBold
+DupeButton.TextSize = 16
+DupeButton.Parent = InnerFrame
+
+local ButtonCorner = Instance.new("UICorner")
+ButtonCorner.CornerRadius = UDim.new(0, 8)
+ButtonCorner.Parent = DupeButton
+
+-- Logic Dupe
+DupeButton.MouseButton1Click:Connect(function()
+	local tool = LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Tool")
+	if tool then
+		local clone = tool:Clone()
+		clone.Parent = LocalPlayer.Backpack
+	else
+		warn("Không cầm Tool nào để dupe.")
+	end
+end)
+
+--// EXTERNAL LOADSTRINGS
 loadstring(game:HttpGet("https://raw.githubusercontent.com/nhat0258/Testing/main/Grow-A-Graden-Tool"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/kosowa/asd/refs/heads/main/GaG.lua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/gumanba/Scripts/refs/heads/main/GrowaGarden"))()
